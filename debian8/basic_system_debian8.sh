@@ -1,4 +1,4 @@
-. system_debain8.conf
+. system_debian8.conf
 
 #BASIC RPI CONFIGURATION
 #Matthias van Gemmern
