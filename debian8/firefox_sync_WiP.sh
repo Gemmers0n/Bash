@@ -1,4 +1,3 @@
-
 #BASIC RPI CONFIGURATION
 #Matthias van Gemmern
 #2017-11-23
