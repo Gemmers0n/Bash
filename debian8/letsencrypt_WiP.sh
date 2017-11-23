@@ -7,7 +7,7 @@
 ##todo variable
 cd /root/
 curl --silent https://raw.githubusercontent.com/srvrco/getssl/master/getssl > getssl ; chmod 700 getssl
-./getssl -c gemmers0nkv.duckdns.org
+./getssl -c $DOMAIN
 echo "ACCOUNT_EMAIL=\"$MAIL\"" >> /root/.getssl/getssl.cfg
 echo "ACL=('/root/letsencrypt_server/.well-known/acme-challenge'" >> /root/.getssl/$DOMAIN/getssl.cfg
 echo "'/root/letsencrypt_server/.well-known/acme-challenge')" >> /root/.getssl/$DOMAIN/getssl.cfg
