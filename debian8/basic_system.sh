@@ -1,6 +1,6 @@
 #BASIC RPI CONFIGURATION
 #Matthias van Gemmern
-#2017-11-06
+#2017-11-23
 
 
 #include config
