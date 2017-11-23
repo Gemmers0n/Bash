@@ -23,6 +23,7 @@ fi
 useradd $USER --system --no-create-home -s /bin/false
 usermod -L $USER
 (echo "$PASSWORD"; echo "$PASSWORD") | smbpasswd -s
+#smbpasswd -a #rhel
 
 #modify config
 cat /etc/samba/smb.conf.orig|grep -v "^#"|grep -v "^;"|awk 'NF'| sed '/\[Main\]/Q' > /etc/samba/smb.conf
