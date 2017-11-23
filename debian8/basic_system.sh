@@ -1,9 +1,15 @@
-. basic_system.conf
-
 #BASIC RPI CONFIGURATION
 #Matthias van Gemmern
 #2017-11-06
 
+
+#include config
+. basic_system.conf
+
+#Install packages and patches
+apt-get update
+apt-get upgrade -y
+apt-get install -y fail2ban
 
 #Modify default pi account
 usermod -p $PASSWORDHASH_PI pi
@@ -29,33 +35,39 @@ else
     echo "Error: no configured MAC-Address"
 fi
 
-#Install patches and packages
-apt-get update
-apt-get upgrade -y
-apt-get install fail2ban -y
-systemctl enable fail2ban
+#copy original config
+if [ -f /etc/ssh/sshd_config.orig ]
+then
+	  echo "Original config already copied"
+else
+	  cp /etc/ssh/sshd_config /etc/ssh/sshd_config.orig
+fi
 
+if [ -f /etc/sudoers.orig ]
+then
+	  echo "Original config already copied"
+else
+	  cp /etc/sudoers /etc/sudoers.orig
+fi
 
-#Modify ssh config
-cp /etc/ssh/sshd_config /etc/ssh/sshd_config.org
-cat /etc/ssh/sshd_config.org |grep -v "^#" |grep -v PermitRootLogin|grep -v 22|grep -v PubkeyAuthentication| grep -v PasswordAuthentication|grep -v UsePAM| awk 'NF' > /etc/ssh/sshd_config
+#modify config
+##modify ssh
+cat /etc/ssh/sshd_config.orig |grep -v "^#" |grep -v PermitRootLogin|grep -v 22|grep -v PubkeyAuthentication| grep -v PasswordAuthentication|grep -v UsePAM| awk 'NF' > /etc/ssh/sshd_config
 echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 echo "UsePAM no" >> /etc/ssh/sshd_config
 echo "Port "$SSH_PORT >> /etc/ssh/sshd_config
-systemctl enable sshd
-systemctl restart sshd
 
+##modify sudoers
+cat /etc/sudoers.orig|grep -v "pi ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
 
-#Remove pi from sudoers
-cp /etc/sudoers /etc/sudoers.org
-cat /etc/sudoers.org|grep -v "pi ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
-
-
-####todo into crontab.d file
+##modify crontab
+#TODO into crontab.d file
 echo "####PATCH####" >> /var/spool/cron/crontabs/root
-
 echo "30 2 * * * curl http://www.wieistmeineip.de/|grep '<div class="title"><strong>'|sed s/'>'/:/g|sed s/'<'/:/g|cut -d ":" -f5|head -n1 > /external/Documents/RaspberryPI/IP_"$HOSTNAME".txt" >> /var/spool/cron/crontabs/root
-####
 
-init 6
+#restart and enable service autostart
+systemctl restart sshd
+systemctl restart fail2ban
+systemctl enable sshd
+systemctl enable fail2ban
