@@ -1,7 +1,7 @@
 #SAMBA CONFIGURATION
 #tested in debian8
 #Matthias van Gemmern
-#2017-11-06
+#2017-11-23
 
 
 . samba.conf
