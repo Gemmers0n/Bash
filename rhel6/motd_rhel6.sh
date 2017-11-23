@@ -1,56 +1,50 @@
-#Skript zur schnellen übersicht aller wichtigen Informationen
+#Short Motd Script
+#tested in rhel6
 #Matthias van Gemmern
-#2015.11.13
+#2017.07.03
+#!/bin/bash
 
 if [ "$USER" != 'root' ]
-then
-#!/bin/bash
-echo --------------------------------------------------------------------------------
-echo HOST
-hostname -f
-echo --------------------------------------------------------------------------------
-echo VERSION
-#cat /etc/*ease|tail -n 1
-if [ "`cat /etc/*ease|tail -n 1|grep '6.7'`" != 0 ] || [ "`cat /etc/*ease|tail -n 1|grep '5.11'`" != 0 ] || [ "`cat /etc/*ease|tail -n 1|grep '7.2'`" != 0 ]
- then
-  echo -en "\033[0;32m"
-  cat /etc/*ease|tail -n 1
- else
-  echo -en "\033[0;31m"
-  cat /etc/*ease|tail -n 1
-fi
-echo -en "\033[0;35m\033[1;35m\033[0;31m\033[1;33m\033[0m"
-echo --------------------------------------------------------------------------------
-echo USER
-APC=`w|sed '1d'|sed '1d'|tr -s " "|cut -d " " -f 1,3|cut -d "." -f 1|sed 's/ /|/g'`
-for SRC in $APC
- do
- RECHNER=`echo $SRC|cut -d "|" -f 2`
- USER=`echo $SRC|cut -d "|" -f 1`
- if [ "`cat /mitarbeiterliste |grep $RECHNER|sed s/' '/''/g`" != "" ]
-  then
-  if [ `w|sed '1d'|sed '2d'|wc -l` -gt 1 ]
-   then
-   echo -en "\033[0;31m"
-   echo "$USER `cat /mitarbeiterliste |grep $RECHNER|sed s/' '/''/g|cut -d "|" -f 2`"
-   else
-   echo -en "\033[0;32m"
-   echo "$USER `cat /mitarbeiterliste |grep $RECHNER|sed s/' '/''/g|cut -d "|" -f 2`"
-  fi
- fi
-done
-echo -en "\033[0;35m\033[1;35m\033[0;31m\033[1;33m\033[0m"
-echo --------------------------------------------------------------------------------
-echo SPACE
-echo -en "\033[0;31m"
-df -Ph | awk '+$5 >= 80 {print}'
-echo -en "\033[0;35m\033[1;35m\033[0;31m\033[1;33m\033[0m"
-echo --------------------------------------------------------------------------------
-echo DATE
-if [ "`pgrep ntpd`" != 0 ]
- then
-  echo -en "\033[0;32m"
-  date
-fi
-echo -en "\033[0;35m\033[1;35m\033[0;31m\033[1;33m\033[0m"
+    color_on="\033[0;31m"
+        color_off="\033[0;35m\033[1;35m\033[0;31m\033[1;33m\033[0m"
+    then
+    echo --------------------------------------------------------------------------------
+        #HOSTNAME
+    echo "HOSTNAME:" `hostname -f`
+
+        #RELEASE
+    echo -n "RELEASE: "
+        cat /etc/*ease|tail -n 1
+        #USER
+    if [ `w|sed '1,2d'|tr -s " "|cut -d " " -f 1|uniq|wc -l` -gt 1 ] && [ `w|sed '1,2d'|tr -s " "|cut -d " " -f 3|uniq|wc -l` -gt 1 ] #Wenn mehr als ein einzigartiger user UND mehr als ein APC verbunden
+    then
+        USERS=`w|sed '1,2d'|tr -s " "|cut -d " " -f 1|uniq`
+        for USER in $USERS
+        do
+            echo -e $color_on"USER: $USER"$color_off
+        done
+        fi
+        #HARDDRIVE
+        if [ ! -z `df -Ph | awk '+$5 >= 90 {print}'|awk '{ print $1 }'` ]
+        then
+                echo -en $color_on"SPEICHER: "
+                df -Ph | awk '+$5 >= 90 {print}'  #Speicher belegt über 90%
+                echo -en $color_off
+        fi
+
+        if [ ! -z `df -Pi | awk '+$5 >= 90 {print}'|awk '{ print $1 }'` ];
+        then
+                echo -en $color_on"INODES: "
+                df -Pi | awk '+$5 >= 90 {print}'  #Inodes belegt über 90%
+                echo -en $color_off
+        fi
+        #NTP
+        if [ -z `pgrep ntpd` ]
+        then
+                echo DATE
+                echo -e $color_on`date`$color_off
+        fi
+        #FIREWALL
+        #/sbin/lsmod|grep ip_tables/sbin/lsmod|grep ip_tables rhel only
+        echo --------------------------------------------------------------------------------
 fi
