@@ -18,7 +18,7 @@ ln -s ../typo3_src-$VERSION typo3_src
 ln -s typo3_src/index.php
 ln -s typo3_src/typo3
 #maybe more rights
-chown -R www-data:www-data /var/www/$URL1/web
+chown -R www-data:www-data /var/www/$URL1/*
 
 #Mysql or Mariadb config still asks for pw
 apt-get -y install mariadb-server mariadb-client
@@ -186,6 +186,7 @@ apt-get -y install php5-mysqlnd
 
 #more speed with packages
 apt-get install -y php5-apcu
+##TODO debian9 apt-get -y install php7.0-fpm
 
 sed -i.bak 's/\(post_max_size = \).*/\120M/' /etc/php5/fpm/php.ini
 sed -i '/always_populate_raw_post_dat/s/^;//g' /etc/php5/fpm/php.ini
