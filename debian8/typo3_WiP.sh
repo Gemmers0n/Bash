@@ -20,7 +20,7 @@ ln -s typo3_src/typo3
 #maybe more rights
 chown -R www-data:www-data /var/www/$URL1/*
 
-#Mysql or Mariadb config still asks for pw
+#TODO Mysql or Mariadb config still asks for pw
 apt-get -y install mariadb-server mariadb-client
 
 mysqladmin --defaults-file=/etc/mysql/debian.cnf create typo3
