@@ -21,7 +21,9 @@ ln -s typo3_src/typo3
 chown -R www-data:www-data /var/www/$URL1/*
 
 #TODO Mysql or Mariadb config still asks for pw
+#debian9 mysql_secure_installation is needed
 apt-get -y install mariadb-server mariadb-client
+
 
 mysqladmin --defaults-file=/etc/mysql/debian.cnf create typo3
 mysql --defaults-file=/etc/mysql/debian.cnf
@@ -34,6 +36,8 @@ FLUSH PRIVILEGES;
 quit;
 ##todo bis hier mysql
 
+systemctl restart mariadb
+systemctl enable mariadb
 
 #nginx defaults
 sed -i '/location ~ /s/#//g' /etc/nginx/sites-available/default
@@ -211,6 +215,7 @@ mkdir /var/www/html #not needed in debian9 but doesnt hurt to be executed
 echo "<?php" > /var/www/html/info.php
 echo "phpinfo();" >> /var/www/html/info.php
 echo "?>" >> /var/www/html/info.php
+#remove after use
 
 chown -R www-data:www-data /var/www/html/
 
