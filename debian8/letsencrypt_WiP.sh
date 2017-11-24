@@ -31,3 +31,5 @@ cat /root/.getssl/$URL.duckdns.org/$URL.duckdns.org.crt /root/.getssl/$URL.duckd
 
 # start service
 service nginx start
+
+#point browser to $DOMAIN/typo3
