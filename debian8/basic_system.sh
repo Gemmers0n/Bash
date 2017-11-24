@@ -20,7 +20,7 @@ usermod -p $PASSWORDHASH_ROOT root
 
 #Add new Login User
 #Passwort generieren mit: perl -e 'print crypt("DASPASSWORT", "salt"),"\n"'
-useradd -m -p $PASSWORDHASH_USER1 -u $USER1_USERID $USER1_USERNAME
+useradd -m -p $PASSWORDHASH_USER1 -s /bin/bash -u $USER1_USERID $USER1_USERNAME
 sudo -u $USER1_USERNAME ssh-keygen -t rsa -b 2048 -f /home/$USER1_USERNAME/.ssh/id_rsa -C "notes" -N ''
 echo $USER1_PUBKEY >> /home/$USER1_USERNAME/.ssh/authorized_keys
 
