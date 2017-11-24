@@ -25,12 +25,21 @@ sudo -u $USER1_USERNAME ssh-keygen -t rsa -b 2048 -f /home/$USER1_USERNAME/.ssh/
 echo $USER1_PUBKEY >> /home/$USER1_USERNAME/.ssh/authorized_keys
 
 #Set host-based config with MAC-Address
-if [ `ip addr | grep link/ether | awk '{print $2}'` == $HOST1_MAC ]; then
+if [ `ip addr | grep link/ether | head -n 1 | awk '{print $2}'` == $HOST1_MAC ]; then
     echo "HOSTNAME="$HOST1_HOSTNAME >> /etc/environment
     echo "UUID="$HOST1_DISK"       /external       ext4    defaults,nofail      0       0" >> /etc/fstab
     #Add group for external drive
     groupadd --gid $DISK_GROUPID $DISK_GROUPNAME
     usermod -G $DISK_GROUPNAME $USER1_USERNAME
+else
+    echo "Error: no configured MAC-Address"
+fi
+if [ `ip addr | grep link/ether | head -n 1 | awk '{print $2}'` == $HOST2_MAC ]; then
+    echo "HOSTNAME="$HOST2_HOSTNAME >> /etc/environment
+    #echo "UUID="$HOST1_DISK"       /external       ext4    defaults,nofail      0       0" >> /etc/fstab
+    #Add group for external drive
+    #groupadd --gid $DISK_GROUPID $DISK_GROUPNAME
+    #usermod -G $DISK_GROUPNAME $USER1_USERNAME
 else
     echo "Error: no configured MAC-Address"
 fi
