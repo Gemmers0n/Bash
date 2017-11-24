@@ -44,8 +44,8 @@ sed -i '/include snippets\/fastcgi-php.conf/s/#//g' /etc/nginx/sites-available/d
 ##todo line above with 127.0.0.1:9000 #tcp connection instead of above socks
 sed -i '/deny all/s/#//g' /etc/nginx/sites-available/default
 sed -i.bak 's/\(deny all\;\).*/\1}/' /etc/nginx/sites-enabled/default
-sed -i.bak 's/\(index index.html index.htm index.nginx-debian.html\).*/\1 index.php\;/' /etc/nginx/sites-enabled/default
-
+#TODO doesnt work #sed -i.bak 's/\(index index.html index.htm index.nginx-debian.html\).*/\1 index.php\;/' /etc/nginx/sites-enabled/default
+#TODO ending }
 
 ##todo ssl config copy from server
 cat << EOF > /etc/nginx/sites-available/$URL1.vhost
