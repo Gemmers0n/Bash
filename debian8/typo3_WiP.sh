@@ -229,3 +229,6 @@ systemctl enable nginx
 
 touch /var/www/$URL1.duckdns.org/web/FIRST_INSTALL
 
+#point browser to $DOMAIN/typo3
+#TODO http instead of socket
+
