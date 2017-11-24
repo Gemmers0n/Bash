@@ -76,6 +76,7 @@ echo "####PATCH####" >> /var/spool/cron/crontabs/root
 echo "30 2 * * * curl http://www.wieistmeineip.de/|grep '<div class="title"><strong>'|sed s/'>'/:/g|sed s/'<'/:/g|cut -d ":" -f5|head -n1 > /external/Documents/RaspberryPI/IP_"$HOSTNAME".txt" >> /var/spool/cron/crontabs/root
 
 #restart and enable service autostart
+#TODO ssh instead sshd debian9
 systemctl restart sshd
 systemctl restart fail2ban
 systemctl enable sshd
