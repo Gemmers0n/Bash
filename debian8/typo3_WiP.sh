@@ -6,19 +6,19 @@
 
 . typo3.conf
 #todo which packets are needed
-mkdir -p /var/www/$URL1/web
-cd /var/www/$URL1/
+mkdir -p /var/www/$URL1.duckdns.org/web
+cd /var/www/$URL1.duckdns.org/
 rm -f $VERSION
 #doesnt load as tar.gz but is extractable
 wget https://get.typo3.org/$VERSION
 tar -xzvf $VERSION
 rm -f $VERSION
-cd /var/www/$URL1/web/
+cd /var/www/$URL1.duckdns.org/web/
 ln -s ../typo3_src-$VERSION typo3_src
 ln -s typo3_src/index.php
 ln -s typo3_src/typo3
 #maybe more rights
-chown -R www-data:www-data /var/www/$URL1/*
+chown -R www-data:www-data /var/www/$URL1.duckdns.org/*
 
 #TODO Mysql or Mariadb config still asks for pw
 #debian9 mysql_secure_installation is needed
@@ -52,10 +52,10 @@ sed -i 's/\(deny all\;\).*/\1}/' /etc/nginx/sites-available/default
 #TODO ending }
 
 ##todo ssl config copy from server
-cat << EOF > /etc/nginx/sites-available/$URL1.vhost
+cat << EOF > /etc/nginx/sites-available/$URL1.duckdns.org.vhost
 server {
     listen 80;
-    server_name 	$URL1
+    server_name 	$URL1.duckdns.org
 	                192.168.178.27
 	                raspberrypi
 	                ;
@@ -65,27 +65,27 @@ server {
 
 server {
     listen 443;
-    server_name 	$URL1
+    server_name 	$URL1.duckdns.org
 	                192.168.178.27
 	                raspberrypi
-    root /var/www/$URL1/web;
+    root /var/www/$URL1.duckdns.org/web;
 	
 	ssl on;
-	ssl_certificate ssl/$URL1.chain.crt;
-	ssl_certificate_key ssl/$URL1.key;
+	ssl_certificate ssl/$URL1.duckdns.org.chain.crt;
+	ssl_certificate_key ssl/$URL1.duckdns.org.key;
 	ssl_session_cache shared:SSL:10m;
 	ssl_session_timeout 10m;	
 	ssl_prefer_server_ciphers on;
 	ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
-	ssl_dhparam ssl/$URL1.dhparam.pem;
+	ssl_dhparam ssl/$URL1.duckdns.org.dhparam.pem;
 	
 	add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
 	add_header X-Frame-Options DENY;
 	add_header X-Content-Type-Options nosniff;
 	
 
-       if (\$http_host != "$URL1") {
-                 rewrite ^ https://$URL1\$request_uri permanent;
+       if (\$http_host != "$URL1.duckdns.org") {
+                 rewrite ^ https://$URL1.duckdns.org\$request_uri permanent;
        }
 
        index index.php index.html;
@@ -177,7 +177,7 @@ server {
 EOF
 
 cd /etc/nginx/sites-enabled/
-ln -s /etc/nginx/sites-available/$URL1.vhost $URL1.vhost
+ln -s /etc/nginx/sites-available/$URL1.duckdns.org.vhost $URL1.duckdns.org.vhost
 
 
 #php customization
@@ -227,5 +227,5 @@ systemctl enable php5-fpm
 systemctl restart nginx
 systemctl enable nginx
 
-touch /var/www/$URL1/web/FIRST_INSTALL
+touch /var/www/$URL1.duckdns.org/web/FIRST_INSTALL
 
