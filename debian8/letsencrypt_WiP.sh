@@ -16,7 +16,6 @@ echo "ACCOUNT_EMAIL=\"$MAIL\"" >> /root/.getssl/getssl.cfg
 echo "ACL=('/root/letsencrypt_server/.well-known/acme-challenge'" >> /root/.getssl/$URL.duckdns.org/getssl.cfg
 echo "'/root/letsencrypt_server/.well-known/acme-challenge')" >> /root/.getssl/$URL.duckdns.org/getssl.cfg
 mkdir -p /root/letsencrypt_server/.well-known/acme-challenge
-#TODO unvcomment challenge server
 
 service nginx stop
 
