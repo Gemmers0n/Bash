@@ -194,7 +194,7 @@ apt-get install -y php5-apcu
 PHPINI=/etc/php5/fpm/php.ini
 cp $PHPINI $PHPINI.orig
 sed -i 's/\(post_max_size = \).*/\120M/' $PHPINI
-sed -i '/always_populate_raw_post_dat/s/^;//g' $PHPINI
+sed -i '/always_populate_raw_post_dat/s/^;//g' $PHPINI #not needed in php7 but doesnt hurt to be executed
 sed -i 's/\(max_execution_time = \).*/\1240/' $PHPINI
 sed -i 's/\(upload_max_filesize = \).*/\120M/' $PHPINI
 sed -i '/max_input_vars/s/^;//g' $PHPINI
@@ -202,7 +202,7 @@ sed -i 's/\(max_input_vars = \).*/\12000/' $PHPINI
 sed -i '/cgi.fix_pathinfo=/s/^;//g' $PHPINI
 sed -i 's/\(cgi.fix_pathinfo=\).*/\10/' $PHPINI
 
-mkdir /var/www/html
+mkdir /var/www/html #not needed in debian9 but doesnt hurt to be executed
 
 echo "<?php" > /var/www/html/info.php
 echo "phpinfo();" >> /var/www/html/info.php
@@ -210,6 +210,7 @@ echo "?>" >> /var/www/html/info.php
 
 chown -R www-data:www-data /var/www/html/
 
+#todo debian9 php7
 systemctl restart php5-fpm
 systemctl enable php5-fpm
 
