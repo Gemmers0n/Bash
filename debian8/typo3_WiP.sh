@@ -41,10 +41,10 @@ sed -i '/include snippets\/fastcgi-php.conf/s/#//g' /etc/nginx/sites-available/d
 #nano /etc/php5/fpm/pool.d/www.conf ### insert: listen = /var/run/php5-fpm.sock ###and remove 127.0.0.1:9000
 #sed -i '/fastcgi_pass unix:\/var\/run\/php5-fpm.sock/s/#//g' /etc/nginx/sites-available/default
 #sed -i.bak 's/\(fastcgi_pass unix:\/var\/run\/php5-fpm.sock\;\).*/\1}/' /etc/nginx/sites-enabled/default
-##todo line above with 127.0.0.1:9000 #tcp connection instead of above socks
+#TODO line above with 127.0.0.1:9000 #tcp connection instead of above socks
 sed -i '/deny all/s/#//g' /etc/nginx/sites-available/default
-sed -i.bak 's/\(deny all\;\).*/\1}/' /etc/nginx/sites-enabled/default
-#TODO doesnt work #sed -i.bak 's/\(index index.html index.htm index.nginx-debian.html\).*/\1 index.php\;/' /etc/nginx/sites-enabled/default
+sed -i 's/\(deny all\;\).*/\1}/' /etc/nginx/sites-available/default
+#TODO doesnt work #sed -i 's/\(        index index.html index.htm index.nginx-debian.html\).*/\1" index.php"\;/' /etc/nginx/sites-available/default
 #TODO ending }
 
 ##todo ssl config copy from server
