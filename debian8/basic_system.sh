@@ -27,6 +27,7 @@ echo $USER1_PUBKEY >> /home/$USER1_USERNAME/.ssh/authorized_keys
 #Set host-based config with MAC-Address
 if [ `ip addr | grep link/ether | head -n 1 | awk '{print $2}'` == $HOST1_MAC ]; then
     echo "HOSTNAME="$HOST1_HOSTNAME >> /etc/environment
+    echo $HOST1_HOSTNAME >> /etc/hostname
     echo "UUID="$HOST1_DISK"       /external       ext4    defaults,nofail      0       0" >> /etc/fstab
     #Add group for external drive
     groupadd --gid $DISK_GROUPID $DISK_GROUPNAME
@@ -36,6 +37,7 @@ else
 fi
 if [ `ip addr | grep link/ether | head -n 1 | awk '{print $2}'` == $HOST2_MAC ]; then
     echo "HOSTNAME="$HOST2_HOSTNAME >> /etc/environment
+    echo $HOST2_HOSTNAME >> /etc/hostname
     #echo "UUID="$HOST1_DISK"       /external       ext4    defaults,nofail      0       0" >> /etc/fstab
     #Add group for external drive
     #groupadd --gid $DISK_GROUPID $DISK_GROUPNAME
