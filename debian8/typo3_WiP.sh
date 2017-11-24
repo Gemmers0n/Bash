@@ -40,7 +40,7 @@ sed -i '/location ~ /s/#//g' /etc/nginx/sites-available/default
 sed -i '/include snippets\/fastcgi-php.conf/s/#//g' /etc/nginx/sites-available/default
 #nano /etc/php5/fpm/pool.d/www.conf ### insert: listen = /var/run/php5-fpm.sock ###and remove 127.0.0.1:9000
 #sed -i '/fastcgi_pass unix:\/var\/run\/php5-fpm.sock/s/#//g' /etc/nginx/sites-available/default
-#sed -i.bak 's/\(fastcgi_pass unix:\/var\/run\/php5-fpm.sock\;\).*/\1}/' /etc/nginx/sites-enabled/default
+#sed -i 's/\(fastcgi_pass unix:\/var\/run\/php5-fpm.sock\;\).*/\1}/' /etc/nginx/sites-enabled/default
 #TODO line above with 127.0.0.1:9000 #tcp connection instead of above socks
 sed -i '/deny all/s/#//g' /etc/nginx/sites-available/default
 sed -i 's/\(deny all\;\).*/\1}/' /etc/nginx/sites-available/default
@@ -186,16 +186,21 @@ apt-get -y install php5-mysqlnd
 
 #more speed with packages
 apt-get install -y php5-apcu
-##TODO debian9 apt-get -y install php7.0-fpm
+##TODO debian9 
+#apt-get -y install php7.0-fpm
+#PHPINI=/etc/php/7.0/fpm/php.ini
+#cp $PHPINI $PHPINI.orig
 
-sed -i.bak 's/\(post_max_size = \).*/\120M/' /etc/php5/fpm/php.ini
-sed -i '/always_populate_raw_post_dat/s/^;//g' /etc/php5/fpm/php.ini
-sed -i.bak 's/\(max_execution_time = \).*/\1240/' /etc/php5/fpm/php.ini
-sed -i.bak 's/\(upload_max_filesize = \).*/\120M/' /etc/php5/fpm/php.ini
-sed -i '/max_input_vars/s/^;//g' /etc/php5/fpm/php.ini
-sed -i.bak 's/\(max_input_vars = \).*/\12000/' /etc/php5/fpm/php.ini
-sed -i '/cgi.fix_pathinfo=/s/^;//g' /etc/php5/fpm/php.ini
-sed -i.bak 's/\(cgi.fix_pathinfo=\).*/\10/' /etc/php5/fpm/php.ini
+PHPINI=/etc/php5/fpm/php.ini
+cp $PHPINI $PHPINI.orig
+sed -i 's/\(post_max_size = \).*/\120M/' $PHPINI
+sed -i '/always_populate_raw_post_dat/s/^;//g' $PHPINI
+sed -i 's/\(max_execution_time = \).*/\1240/' $PHPINI
+sed -i 's/\(upload_max_filesize = \).*/\120M/' $PHPINI
+sed -i '/max_input_vars/s/^;//g' $PHPINI
+sed -i 's/\(max_input_vars = \).*/\12000/' $PHPINI
+sed -i '/cgi.fix_pathinfo=/s/^;//g' $PHPINI
+sed -i 's/\(cgi.fix_pathinfo=\).*/\10/' $PHPINI
 
 mkdir /var/www/html
 
