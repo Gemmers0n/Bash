@@ -29,6 +29,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/$URL.
 sed -i.bak 's/\(worker_processes \).*/\11\;/' /etc/nginx/nginx.conf
 sed -i.bak 's/\(ssl_protocols \).*/\1TLSv1\.2\;/' /etc/nginx/nginx.conf
 sed -i.bak 's/\(gzip \).*/\1off\;/' /etc/nginx/nginx.conf
+#TODO keepalive_timeout   2; in nginx.conf
 
 #restart and enable service autostart
 systemctl restart nginx
