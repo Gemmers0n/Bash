@@ -202,6 +202,10 @@ sed -i 's/\(max_input_vars = \).*/\12000/' $PHPINI
 sed -i '/cgi.fix_pathinfo=/s/^;//g' $PHPINI
 sed -i 's/\(cgi.fix_pathinfo=\).*/\10/' $PHPINI
 
+#TODO fastcgi listen on 9000 nano /etc/php5/fpm/pool.d/www.conf
+#listen = 127.0.0.1:9000
+#cp /etc/php/7.0/fpm/pool.d/www.conf /etc/php/7.0/fpm/pool.d/www.conf.orig
+
 mkdir /var/www/html #not needed in debian9 but doesnt hurt to be executed
 
 echo "<?php" > /var/www/html/info.php
