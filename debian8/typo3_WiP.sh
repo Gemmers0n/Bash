@@ -183,8 +183,8 @@ ln -s /etc/nginx/sites-available/$URL1.duckdns.org.vhost $URL1.duckdns.org.vhost
 #php customization
 apt-get -y install php5-fpm
 #TODO
-#extra packages needed by typo3 php7.0
-# apt-get install php7.0-gd php7.0-xml php7.0-zip
+#extra packages needed by typo3 php7.0 debian9
+# apt-get install php7.0-gd php7.0-xml php7.0-zip imagemagick-6-common
 
 #php mariadb support
 apt-get -y install php5-mysqlnd
