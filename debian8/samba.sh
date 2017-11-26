@@ -27,6 +27,7 @@ usermod -L $USER
 
 #modify config
 cat /etc/samba/smb.conf.orig|grep -v "^#"|grep -v "^;"|awk 'NF'| sed '/\[Main\]/Q' > /etc/samba/smb.conf
+#TODO not smbd.conf
 echo "unix charset = UTF-8" >> /etc/samba/smbd.conf
 echo "dos charset = cp1252" >> /etc/samba/smbd.conf
 echo "mangled names = no" >> /etc/samba/smbd.conf
