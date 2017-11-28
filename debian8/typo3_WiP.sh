@@ -77,7 +77,7 @@ server {
 	ssl_session_timeout 10m;	
 	ssl_prefer_server_ciphers on;
 	ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
-	ssl_dhparam ssl/$URL1.duckdns.org.pem;
+	ssl_dhparam /etc/nginx/dhparam.pem;
 	
 	add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
 	add_header X-Frame-Options DENY;
