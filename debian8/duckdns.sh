@@ -1,7 +1,7 @@
 include ./duckdns.conf
 mkdir /opt/duckdns
 cd /opt/duckdns
-echo 'echo url="$TOKENURL" | curl -k -o /opt/duckdns/duck.log -K -' > duck.sh
+echo 'echo url="https://www.duckdns.org/update?domains=$URL&token=$TOKEN&ip=" | curl -k -o /opt/duckdns/duck.log -K -' > duck.sh
 chmod 700 duck.sh
 ./duck.sh
 
