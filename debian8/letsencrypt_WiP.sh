@@ -28,7 +28,6 @@ cd ..
 pkill python
 cp .getssl/$URL.duckdns.org/$URL.duckdns.org.* /etc/nginx/ssl/
 cat /root/.getssl/$URL.duckdns.org/$URL.duckdns.org.crt /root/.getssl/$URL.duckdns.org/chain.crt > /etc/nginx/ssl/$URL.duckdns.org.chain.crt
-cat /root/.getssl/$URL.duckdns.org/$URL.duckdns.org.crt /root/.getssl/$URL.duckdns.org/$URL.duckdns.org.key > /etc/nginx/ssl/$URL.duckdns.org.pem
 
 # start service
 service nginx start
