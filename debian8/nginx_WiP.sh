@@ -30,6 +30,7 @@ sed -i.bak 's/\(worker_processes \).*/\11\;/' /etc/nginx/nginx.conf
 sed -i.bak 's/\(ssl_protocols \).*/\1TLSv1\.2\;/' /etc/nginx/nginx.conf
 sed -i.bak 's/\(gzip \).*/\1off\;/' /etc/nginx/nginx.conf
 #TODO keepalive_timeout   2; in nginx.conf
+#TODO server_tokens off;
 openssl dhparam -out /etc/nginx/dhparam.pem 4096
 
 #restart and enable service autostart
