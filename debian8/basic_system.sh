@@ -2,6 +2,7 @@
 #Matthias van Gemmern
 #2017-11-23
 
+#TODO rhel7/debian9 paralel
 
 #include config
 . basic_system.conf
