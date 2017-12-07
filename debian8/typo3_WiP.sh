@@ -1,6 +1,6 @@
 #TYPO3 CONFIGURATION
 #Matthias van Gemmern
-#2017-11-06
+#2017-12-07
 
 #######debian 8 only php 5.6 opnly typo 7.6.23 # 8.7.8 is php 7 # https://typo3.org/download/
 
@@ -147,7 +147,9 @@ server {
         }
         location ~* ^/(typo3/|fileadmin/|typo3conf/|typo3temp/|uploads/|favicon\.ico) {
         }
-
+        location ~* \.(eot|otf|ttf|woff|woff2)$ {
+                add_header Access-Control-Allow-Origin *;
+        }
         location / {
                         if (\$query_string ~ ".+") {
                                 return 405;
@@ -234,4 +236,17 @@ touch /var/www/$URL1.duckdns.org/web/FIRST_INSTALL
 
 #point browser to $DOMAIN/typo3
 #TODO http instead of socket
+
+#TODO edit mime types
+#    application/font-woff2                woff2;
+
+    # Browsers usually ignore the font media types and simply sniff
+    # the bytes to figure out the font type.
+    # https://mimesniff.spec.whatwg.org/#matching-a-font-type-pattern
+    #
+    # However, Blink and WebKit based browsers will show a warning
+    # in the console if the following font types are served with any
+    # other media types.
+
+#application/x-font-ttf ttc ttf;
 
