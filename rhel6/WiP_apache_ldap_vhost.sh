@@ -1,4 +1,4 @@
-
+#!/bin/bash
 #APACHE LDAP CONFIGURATION
 #Reverse-Proxy with LDAP authetification
 #Matthias van Gemmern
