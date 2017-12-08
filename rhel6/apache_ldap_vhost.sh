@@ -1,3 +1,11 @@
+
+#APACHE LDAP CONFIGURATION
+#Matthias van Gemmern
+#2017-12-08
+
+
+
+cat << EOF > /etc/httpd/sites-available/$URL.vhost
 <VirtualHost $URL:443>
         ServerName $URL.com
         ServerAdmin admin@mysite.com
@@ -33,3 +41,4 @@ ProxyRequests Off
         LogLevel warn
         CustomLog ${APACHE_LOG_DIR}/$URL_access.log combined
 </VirtualHost>
+EOF
