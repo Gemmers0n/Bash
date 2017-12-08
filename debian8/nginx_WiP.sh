@@ -1,3 +1,4 @@
+#!/bin/bash
 #NGINX CONFIGURATION
 #tested in debian8
 #Matthias van Gemmern
