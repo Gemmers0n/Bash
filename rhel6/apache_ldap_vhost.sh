@@ -1,9 +1,10 @@
 
 #APACHE LDAP CONFIGURATION
+#Reverse-Proxy with LDAP authetification
 #Matthias van Gemmern
 #2017-12-08
 
-
+. apache_ldap_vhost.conf
 
 cat << EOF > /etc/httpd/sites-available/$URL.vhost
 <VirtualHost $URL:443>
