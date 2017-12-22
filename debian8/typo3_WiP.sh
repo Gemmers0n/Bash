@@ -202,6 +202,7 @@ apt-get install -y php5-apcu
 
 PHPINI=/etc/php5/fpm/php.ini
 cp $PHPINI $PHPINI.orig
+#TODO uncomment and set session.cookie_secure = 1 and session.cookie_httponly = 1
 sed -i 's/\(post_max_size = \).*/\120M/' $PHPINI
 sed -i '/always_populate_raw_post_dat/s/^;//g' $PHPINI #not needed in php7 but doesnt hurt to be executed
 sed -i 's/\(max_execution_time = \).*/\1240/' $PHPINI
