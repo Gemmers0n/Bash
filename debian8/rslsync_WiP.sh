@@ -29,6 +29,12 @@ tail -n+5 conf/rslsync.conf >> $CONFIG
 
 usermod -u 1010 rslsync
 
+mkdir /external/rslsync-data
+setfacl -R -d -m "u:rslsync:rwX" /external/rslsync-data/
+setfacl -R -m "u:rslsync:rwX" /external/rslsync-data/
+
+
+
 #restart and enable service autostart
 sudo systemctl start resilio-sync
 sudo systemctl enable resilio-sync
