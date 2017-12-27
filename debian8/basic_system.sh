@@ -84,3 +84,6 @@ systemctl restart sshd
 systemctl restart fail2ban
 systemctl enable sshd
 systemctl enable fail2ban
+
+systemctl stop bluetooth
+systemctl disable bluetooth
