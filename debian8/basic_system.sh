@@ -10,8 +10,7 @@
 apt-get update
 apt-get upgrade -y
 apt-get remove -y nano
-apt-get install -y fail2ban vim apt-file 
-apt-file update
+apt-get install -y fail2ban vim
 
 #Modify default pi account
 usermod -p $PASSWORDHASH_PI pi
