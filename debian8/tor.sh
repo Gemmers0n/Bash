@@ -31,3 +31,12 @@ echo "HiddenServicePort $PORT `ip a s eth0 | awk '/inet / {print$2}' | cut -d/ -
 #restart and enable service autostart
 systemctl restart tor
 systemctl enable tor
+
+#PUTTY SETTINGS
+#Connection -> Proxy
+#Proxy type: SOCKS 5
+#Proxy hostname: localhost
+#Port 9150
+#Do DNS name lookup at Proxy end: Yes
+#
+#See Tor Browser Network Settings if differs
