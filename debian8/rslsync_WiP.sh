@@ -23,7 +23,11 @@ sudo apt-get install resilio-sync -y
 
 #create config
 echo '{' > $CONFIG ;echo -n '  "device_name": "' >> $CONFIG ;echo -n `hostname` >> $CONFIG;echo '",' >> $CONFIG
+echo '  "storage_path" : "/external/",' >> $CONFIG
+echo '  "pid_file" : "/var/run/resilio-sync/sync.pid",' >> $CONFIG
 tail -n+5 conf/rslsync.conf >> $CONFIG
+
+usermod -u 1010 rslsync
 
 #restart and enable service autostart
 sudo systemctl start resilio-sync
