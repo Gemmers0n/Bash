@@ -1,6 +1,6 @@
 #BASIC RPI CONFIGURATION
 #Matthias van Gemmern
-#2017-11-23
+#2017-12-27
 
 
 #include config
@@ -9,7 +9,9 @@
 #Install packages and patches
 apt-get update
 apt-get upgrade -y
-apt-get install -y fail2ban
+apt-get remove -y nano
+apt-get install -y fail2ban vim apt-file 
+apt-file update
 
 #Modify default pi account
 usermod -p $PASSWORDHASH_PI pi
