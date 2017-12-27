@@ -10,7 +10,7 @@
 apt-get update
 apt-get upgrade -y
 apt-get remove -y nano
-apt-get install -y fail2ban vim
+apt-get install -y fail2ban vim ntp
 
 #Modify default pi account
 usermod -p $PASSWORDHASH_PI pi
@@ -61,6 +61,17 @@ then
 else
 	  cp /etc/sudoers /etc/sudoers.orig
 fi
+
+#todo ntp
+#driftfile /var/lib/ntp/ntp.drift
+
+#server 0.pool.ntp.org
+#server 1.pool.ntp.org
+#server 2.pool.ntp.org
+#server 3.pool.ntp.org
+systemctl stop ntp
+ntpdate -s 0.pool.ntp.org
+systemctl start ntp
 
 #modify config
 ##modify ssh
