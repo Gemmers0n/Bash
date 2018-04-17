@@ -10,6 +10,7 @@ mkdir -p /var/www/$URL1.duckdns.org/web
 cd /var/www/$URL1.duckdns.org/
 rm -f $VERSION
 #doesnt load as tar.gz but is extractable
+#wget --content-disposition https://get.typo3.org/9
 wget https://get.typo3.org/$VERSION
 tar -xzvf $VERSION
 rm -f $VERSION
