@@ -12,7 +12,9 @@ rm -f $VERSION
 #doesnt load as tar.gz but is extractable
 #wget --content-disposition https://get.typo3.org/9
 wget https://get.typo3.org/$VERSION
+#tar -xzvf typo3*
 tar -xzvf $VERSION
+#rm -f typo3*
 rm -f $VERSION
 cd /var/www/$URL1.duckdns.org/web/
 ln -s ../typo3_src-$VERSION typo3_src
