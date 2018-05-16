@@ -1,6 +1,6 @@
 #BASIC RPI CONFIGURATION
 #Matthias van Gemmern
-#2017-12-27
+#2018-05-16
 
 
 #include config
@@ -70,7 +70,7 @@ fi
 #server 2.pool.ntp.org
 #server 3.pool.ntp.org
 systemctl stop ntp
-ntpdate -s 0.pool.ntp.org
+ntpdate -s 0.pool.ntp.org # not installed per default
 systemctl start ntp
 
 #modify config
