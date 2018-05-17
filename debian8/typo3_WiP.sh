@@ -1,6 +1,6 @@
 #TYPO3 CONFIGURATION
 #Matthias van Gemmern
-#2017-12-07
+#2018-05-17
 
 #######debian 8 only php 5.6 opnly typo 7.6.23 # 8.7.8 is php 7 # https://typo3.org/download/
 
