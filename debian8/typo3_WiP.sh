@@ -185,50 +185,56 @@ cd /etc/nginx/sites-enabled/
 ln -s /etc/nginx/sites-available/$URL1.duckdns.org.vhost $URL1.duckdns.org.vhost
 
 
-#php customization
-apt-get -y install php5-fpm
-#TODO
-#extra packages needed by typo3 php7.0 debian9
-# apt-get install php7.0-gd php7.0-xml php7.0-zip imagemagick
 
-#php mariadb support
-apt-get -y install php5-mysqlnd
-#extra packages if needed by app
-#apt-get -y install php5-mysqlnd php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-intl php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+###Debian8
+apt-get -y install php5-fpm install php5-mysqlnd
+#apt-get install -y php5-apcu #more speed with packages
+#apt-get -y install php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-intl php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl #extra packages if needed
+PHPHOME=/etc/php5
 
-#more speed with packages
-apt-get install -y php5-apcu
-##TODO debian9 
-#apt-get -y install php7.0-fpm
-#PHPINI=/etc/php/7.0/fpm/php.ini
-#cp $PHPINI $PHPINI.orig
 
-PHPINI=/etc/php5/fpm/php.ini
-cp $PHPINI $PHPINI.orig
+
+###Debian9
+apt-get -y install php7.0-fpm php7.0-gd php7.0-xml php7.0-zip php7.0-mysql imagemagick
+PHPHOME=/etc/php/7.0
+
+
+
+
+
+###Debian8/9
+cp $PHPHOME/fpm/php.ini $PHPHOME/fpm/php.ini.orig
+cp $PHPHOME/fpm/pool.d/www.conf $PHPHOME/fpm/pool.d/www.conf.orig
+
 #TODO uncomment and set session.cookie_secure = 1 and session.cookie_httponly = 1
-sed -i 's/\(post_max_size = \).*/\120M/' $PHPINI
-sed -i '/always_populate_raw_post_dat/s/^;//g' $PHPINI #not needed in php7 but doesnt hurt to be executed
-sed -i 's/\(max_execution_time = \).*/\1240/' $PHPINI
-sed -i 's/\(upload_max_filesize = \).*/\120M/' $PHPINI
-sed -i '/max_input_vars/s/^;//g' $PHPINI
-sed -i 's/\(max_input_vars = \).*/\12000/' $PHPINI
-sed -i '/cgi.fix_pathinfo=/s/^;//g' $PHPINI
-sed -i 's/\(cgi.fix_pathinfo=\).*/\10/' $PHPINI
+sed -i 's/\(post_max_size = \).*/\120M/' $PHPHOME/fpm/php.ini
+sed -i '/always_populate_raw_post_dat/s/^;//g' $PHPHOME/fpm/php.ini #not needed in php7 but doesnt hurt to be executed
+sed -i 's/\(max_execution_time = \).*/\1240/' $PHPHOME/fpm/php.ini
+sed -i 's/\(upload_max_filesize = \).*/\120M/' $PHPHOME/fpm/php.ini
+sed -i '/max_input_vars/s/^;//g' $PHPHOME/fpm/php.ini
+sed -i 's/\(max_input_vars = \).*/\12000/' $PHPHOME/fpm/php.ini
+sed -i '/cgi.fix_pathinfo=/s/^;//g' $PHPHOME/fpm/php.ini
+sed -i 's/\(cgi.fix_pathinfo=\).*/\10/' $PHPHOME/fpm/php.ini
 
-#TODO fastcgi listen on 9000 nano /etc/php5/fpm/pool.d/www.conf
-#listen = 127.0.0.1:9000
-#cp /etc/php/7.0/fpm/pool.d/www.conf /etc/php/7.0/fpm/pool.d/www.conf.orig
+#listen = 127.0.0.1:9000 # if no socks connection in $PHPHOME/fpm/pool.d/www.conf
 
-mkdir /var/www/html #not needed in debian9 but doesnt hurt to be executed
 
+###PHP-Test
+mkdir /var/www/html
 echo "<?php" > /var/www/html/info.php
 echo "phpinfo();" >> /var/www/html/info.php
 echo "?>" >> /var/www/html/info.php
-#remove after use
-
 chown -R www-data:www-data /var/www/html/
+#rm -Rf /var/www/html # after use
+###
 
-#todo debian9 php7
+
+
+#Debian9
+systemctl restart php7.0-fpm
+systemctl enable php7.0-fpm
+
+#Debian8
 systemctl restart php5-fpm
 systemctl enable php5-fpm
 
