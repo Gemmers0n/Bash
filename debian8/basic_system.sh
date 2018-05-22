@@ -1,6 +1,6 @@
 #BASIC RPI CONFIGURATION
 #Matthias van Gemmern
-#2018-05-16
+#2018-05-22
 
 
 #include config
@@ -9,8 +9,7 @@
 #Install packages and patches
 apt-get update
 apt-get upgrade -y
-apt-get remove -y nano
-apt-get install -y fail2ban vim ntp git-core unattended-upgrades
+apt-get install -y vim ntp unattended-upgrades
 
 #Modify default pi account
 usermod -p $PASSWORDHASH_PI pi
