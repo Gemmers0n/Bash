@@ -1,8 +1,7 @@
 #!/bin/bash
-#APACHE CONFIGURATION
-#tested in rhel6
+#APACHE CONFIGURATION RHEL6
 #Matthias van Gemmern
-#2017-11-08
+#2018-05-23
 
 
 #include config
@@ -33,7 +32,3 @@ openssl dhparam -out /etc/httpd/dhparam.pem 4096
 #restart and enable service autostart
 chkconfig httpd on
 service start httpd
-#rhel7
-#systemctl restart httpd
-#systemctl enable httpd
-
