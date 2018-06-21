@@ -18,10 +18,14 @@ usermod -s /bin/false pi
 #Modify root
 usermod -p $PASSWORDHASH_ROOT root
 
+#Generate System Key
+ssh-keygen -t ecdsa -b 521 -f 521 -N ''
+
 #Add new user
 #generate password with: perl -e 'print crypt("THEPASSWORD", "salt"),"\n"'
 useradd -m -p $PASSWORDHASH_USER1 -s /bin/bash -u $USER1_USERID $USER1_USERNAME
-sudo -u $USER1_USERNAME ssh-keygen -t rsa -b 2048 -f /home/$USER1_USERNAME/.ssh/id_rsa -C "notes" -N ''
+sudo -u $USER1_USERNAME ssh-keygen -t ecdsa -b 521 -f 521 -N '' -f /home/$USER1_USERNAME/.ssh/id_rsa -N ''
+#Echo your Existing key for Login to System
 echo $USER1_PUBKEY >> /home/$USER1_USERNAME/.ssh/authorized_keys
 
 
