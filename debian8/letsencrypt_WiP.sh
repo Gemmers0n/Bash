@@ -6,6 +6,9 @@
 #include config
 . letsencrypt.conf
 
+#clean old stuff
+rm -Rf /root/.getssl /root/letsencrypt_server
+
 #todo confilcts with $DOMAIN from sub script
 DOMAIN2=$URL.$TLD
 #generate structure
@@ -17,7 +20,9 @@ echo "ACCOUNT_EMAIL=\"$MAIL\"" >> /root/.getssl/getssl.cfg
 echo "ACL=('/root/letsencrypt_server/.well-known/acme-challenge'" >> /root/.getssl/$URL.$TLD/getssl.cfg
 echo "'/root/letsencrypt_server/.well-known/acme-challenge')" >> /root/.getssl/$URL.$TLD/getssl.cfg
 mkdir -p /root/letsencrypt_server/.well-known/acme-challenge
-#TODO uncomment real certificate server
+#echo 'CA="https://acme-staging.api.letsencrypt.org">> /root/.getssl/$URL.$TLD/getssl.cfg #staging Server
+echo 'CA="https://acme-v01.api.letsencrypt.org"' >> /root/.getssl/$URL.$TLD/getssl.cfg
+
 
 service nginx stop
 
