@@ -1,4 +1,6 @@
+#!/bin/bash
 #CERTBOT INSTALL AND LETSENCRYPT CERTREQ
+#requires: nginx.sh
 #Matthias van Gemmern
 #2018-07-24
 
