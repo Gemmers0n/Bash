@@ -2,15 +2,11 @@
 #NGINX CONFIGURATION
 #tested in debian8
 #Matthias van Gemmern
-#2017-11-06
+#2018-07-24
 
-
-#include config
-. nginx.conf
 
 #install packages
-apt-get update
-apt-get install -y nginx
+sudo apt-get update && sudo apt-get install -y nginx
 
 #copy original config
 if [ -f /etc/nginx/nginx.conf.orig ]
@@ -21,7 +17,8 @@ else
 fi
 
 #generate structure
-mkdir /etc/nginx/ssl
+sudo mkdir /etc/nginx/ssl
+sudo openssl dhparam -out /etc/nginx/dhparam.pem 4096
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx-selfsigned.key -out /etc/nginx/ssl/nginx-selfsigned.crt -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com"
 
 #modify config
@@ -29,7 +26,7 @@ sed -i.bak 's/\(ssl_protocols \).*/\1TLSv1\.2\;/' /etc/nginx/nginx.conf
 sed -i.bak 's/\(gzip \).*/\1off\;/' /etc/nginx/nginx.conf
 #TODO keepalive_timeout   2; in nginx.conf
 #TODO server_tokens off;
-openssl dhparam -out /etc/nginx/dhparam.pem 4096
+
 
 #restart and enable service autostart
 systemctl restart nginx
