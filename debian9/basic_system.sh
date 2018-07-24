@@ -1,16 +1,17 @@
-#BASIC RPI CONFIGURATION DEBIAN9
+#!/bin/bash
+#SYSTEM CONFIGURATION
+#requires: none
 #Matthias van Gemmern
-#2018-05-23
+#2018-07-24
 
 
-#include config
-. basic_system.conf
+#INCLUDE
+. system.conf
 
-#Install packages and patches
-apt-get update
-apt-get upgrade -y
-apt-get install -y tor
+#INSTALL
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y tor
 
+#CONFIG
 #Modify default pi user
 usermod -p $PASSWORDHASH_PI pi
 usermod -s /bin/false pi
@@ -39,8 +40,6 @@ do
     fi
 done
 
-
-#MODIFY CONFIG
 ##modify ssh
 cat /etc/ssh/sshd_config.orig |grep -v "^#" |grep -v PermitRootLogin|grep -v 22|grep -v PubkeyAuthentication| grep -v PasswordAuthentication|grep -v UsePAM| awk 'NF' > /etc/ssh/sshd_config
 echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
@@ -58,7 +57,7 @@ chmod 0700 /var/lib/tor/hidden_service
 echo "HiddenServiceDir /var/lib/tor/hidden_service/" > /etc/tor/torrc
 echo "HiddenServicePort $SSH_PORT 127.0.0.1:$SSH_PORT" >> /etc/tor/torrc
 
-#MANAGE SERVICES
+#SERVICES
 systemctl restart ssh
 systemctl restart tor
 systemctl enable ssh
