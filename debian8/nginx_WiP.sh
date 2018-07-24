@@ -22,8 +22,7 @@ fi
 
 #generate structure
 mkdir /etc/nginx/ssl
-##todo quiet generating
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/$URL.duckdns.org.key -out /etc/nginx/ssl/$URL.duckdns.org.crt -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx-selfsigned.key -out /etc/nginx/ssl/nginx-selfsigned.crt -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com"
 
 #modify config
 sed -i.bak 's/\(ssl_protocols \).*/\1TLSv1\.2\;/' /etc/nginx/nginx.conf
