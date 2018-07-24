@@ -36,7 +36,7 @@ Group=teamspeak
 WantedBy=multi-user.target
 EOF
 
-chmod 664 /etc/systemd/system/teamspeak3server.service
+chmod 755 /etc/systemd/system/teamspeak3server.service
 sudo systemctl daemon-reload
 sudo systemctl enable teamspeak3server.service
 
