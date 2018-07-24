@@ -74,10 +74,5 @@ fi
 rm $TEAMSPEAK_INSTALLDIR/teamspeak3-server_linux_amd64-$TEAMSPEAK_VERSION.tar.bz2
 
 #SERVICE
-if [ ! "$TEAMSPEAK_FRESHINSTALL" == "YES" ]; then
-    systemctl start teamspeak3server
-fi
-
-#MANUAL
 #this generates your access masterkey (only on fresh installed version)
 /opt/teamspeak-server/ts3server_startscript.sh start
