@@ -57,7 +57,7 @@ wget http://dl.4players.de/ts/releases/$TEAMSPEAK_VERSION/teamspeak3-server_linu
 if [ ! -d $TEAMSPEAK_INSTALLDIR/teamspeak-server-$TEAMSPEAK_VERSION/ ]; then
     mkdir $TEAMSPEAK_INSTALLDIR/teamspeak-server-$TEAMSPEAK_VERSION
     if [ ! "$TEAMSPEAK_FRESHINSTALL" == "YES" ]; then
-        cp -R $TEAMSPEAK_INSTALLDIR/teamspeak-server $TEAMSPEAK_INSTALLDIR/teamspeak-server-$TEAMSPEAK_VERSION
+        cp -a $TEAMSPEAK_INSTALLDIR/teamspeak-server $TEAMSPEAK_INSTALLDIR/teamspeak-server-$TEAMSPEAK_VERSION
     fi
     touch $TEAMSPEAK_INSTALLDIR/teamspeak-server/lastused-"´date´"
     tar xfv $TEAMSPEAK_INSTALLDIR/teamspeak3-server_linux_amd64-$TEAMSPEAK_VERSION.tar.bz2 -C $TEAMSPEAK_INSTALLDIR/teamspeak-server-$TEAMSPEAK_VERSION --strip 1
