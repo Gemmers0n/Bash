@@ -18,8 +18,11 @@ adduser --disabled-password --gecos "" teamspeak
 
 #SERVICE
 systemctl stop teamspeak3server
-#workaround when stop is not working
+#go sure ts3 is down
 pkill ts3server
+#clear shared memory
+rm -f /dev/shm/7gbhujb54g8z9hu43jre8
+
 cat << EOF > /etc/systemd/system/teamspeak3server.service
 [Unit]
 Description=Teamspeak 3 Server
@@ -74,5 +77,6 @@ fi
 rm $TEAMSPEAK_INSTALLDIR/teamspeak3-server_linux_amd64-$TEAMSPEAK_VERSION.tar.bz2
 
 #SERVICE
+systemctl start teamspeak3server
 #this generates your access masterkey (only on fresh installed version)
-/opt/teamspeak-server/ts3server_startscript.sh start
+#/opt/teamspeak-server/ts3server_startscript.sh start
