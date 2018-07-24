@@ -1,6 +1,6 @@
 #!/bin/bash
 #NGINX CONFIGURATION
-#tested in debian8
+#tested in debian9
 #Matthias van Gemmern
 #2018-07-24
 
