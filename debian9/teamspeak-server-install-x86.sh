@@ -80,4 +80,4 @@ fi
 
 #MANUAL
 #this generates your access masterkey (only on fresh installed version)
-#/opt/teamspeak-server/ts3server_startscript.sh start
+/opt/teamspeak-server/ts3server_startscript.sh start
