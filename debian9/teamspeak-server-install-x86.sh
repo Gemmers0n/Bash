@@ -18,6 +18,8 @@ adduser --disabled-password --gecos "" teamspeak
 
 #SERVICE
 systemctl stop teamspeak3server
+#workaround when stop is not working
+pkill ts3server
 cat << EOF > /etc/systemd/system/teamspeak3server.service
 [Unit]
 Description=Teamspeak 3 Server
