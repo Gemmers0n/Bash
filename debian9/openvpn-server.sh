@@ -9,23 +9,21 @@
 sudo apt-get update && sudo apt-get install -y openvpn easy-rsa
 
 #CONFIG
+##openvpn config
+###config
 sudo gunzip -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz > /etc/openvpn/server.conf
-nano /etc/openvpn/server.conf
--->
-dh dh2048.pem
-push "redirect-gateway def1 bypass-dhcp"
-push "dhcp-option DNS 208.67.222.222"
-push "dhcp-option DNS 208.67.220.220"
-user nobody ###kann auch angelegtem uder zugewiesen werden
-group nogroup
-<--
-echo 1 > /proc/sys/net/ipv4/ip_forward
-nano /etc/sysctl.conf
--->
-net.ipv4.ip_forward=1
-<--
-cp -r /usr/share/easy-rsa/ /etc/openvpn
+echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server.conf
+echo 'push "dhcp-option DNS 208.67.222.222"' >> /etc/openvpn/server.conf
+echo 'push "dhcp-option DNS 208.67.220.220"' >> /etc/openvpn/server.conf
+echo 'user nobody' >> /etc/openvpn/server.conf
+echo 'group nogroup' >> /etc/openvpn/server.conf
+###dirs
 mkdir /etc/openvpn/easy-rsa/keys
+cp -r /usr/share/easy-rsa/ /etc/openvpn
+###sysconfig
+echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.conf
+###generating
 openssl dhparam -out /etc/openvpn/dh2048.pem 2048
 cd /etc/openvpn/easy-rsa
 ln -s openssl-1.0.0.cnf openssl.cnf
