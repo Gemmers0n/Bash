@@ -43,6 +43,7 @@ systemctl start openvpn
 
 #GENERATE CLIENT CERT
 cd /etc/openvpn/easy-rsa
+. ./vars #sets env
 ./build-key $KEYNAME
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/easy-rsa/keys/client.ovpn
 nano /etc/openvpn/easy-rsa/keys/client.ovpn
