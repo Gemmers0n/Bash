@@ -22,6 +22,8 @@ fi
 #generate structure
 useradd $USER --system --no-create-home -s /bin/false
 usermod -L $USER
+smbpasswd -L -a $USER
+smbpasswd -L -e $USER
 (echo "$PASSWORD"; echo "$PASSWORD") | smbpasswd -s
 #smbpasswd -a #rhel
 
